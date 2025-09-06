@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { signup, login, forgotPassword, resetPassword, logout } from '../controllers/authController';
+import { validate } from '../middleware/validationMiddleware';
+import { signupSchema, loginSchema, forgotPasswordSchema, resetPasswordSchema } from '../utils/validationSchemas';
+const router = Router();
+router.post('/signup', validate(signupSchema), signup);
+router.post('/login', validate(loginSchema), login);
+router.post('/forgot-password', validate(forgotPasswordSchema), forgotPassword);
+router.post('/reset-password', validate(resetPasswordSchema), resetPassword);
+router.post('/logout', logout);
+export default router;

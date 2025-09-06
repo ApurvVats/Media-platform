@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  hashed_password String
+  created_at      DateTime  @default(now())
+  media           MediaAsset[]
+}
+
+model MediaAsset {
+  id           String         @id @default(cuid())
+  title        String
+  type         String // "video" or "audio"
+  file_url     String
+  created_at   DateTime       @default(now())
+  uploadedById String
+  uploadedBy   AdminUser      @relation(fields: [uploadedById], references: [id])
+  view_logs    MediaViewLog[]
+}
+
+model MediaViewLog {
+  id           String     @id @default(cuid())
+  media_id     String
+  viewed_by_ip String
+  timestamp    DateTime   @default(now())
+  media        MediaAsset @relation(fields: [media_id], references: [id])
+}
+model Otp {
+  id        String   @id @default(cuid())
+  email     String
+  otpHash   String
+  expiresAt DateTime
+  type      String // e.g., "RESET_PASSWORD"
+
+  @@unique([email, type])
+}

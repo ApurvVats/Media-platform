@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "sourceMap": true,
+
+    "baseUrl": "./src", // The most important change for clean imports
+    "paths": {
+      "@/controllers/*": ["controllers/*"],
+      "@/db/*": ["db/*"],
+      "@/middleware/*": ["middleware/*"],
+      "@/routes/*": ["routes/*"],
+      "@/services/*": ["services/*"]
+    },
+
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"], // Tell compiler to only look in 'src'
+  "exclude": ["node_modules", "dist"]
+}
