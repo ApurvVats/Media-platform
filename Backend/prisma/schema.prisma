@@ -14,7 +14,6 @@ model AdminUser {
   created_at      DateTime  @default(now())
   media           MediaAsset[]
 }
-
 model MediaAsset {
   id           String         @id @default(cuid())
   title        String
